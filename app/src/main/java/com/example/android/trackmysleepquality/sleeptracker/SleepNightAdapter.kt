@@ -21,16 +21,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.android.trackmysleepquality.R
-import com.example.android.trackmysleepquality.convertDurationToFormatted
-import com.example.android.trackmysleepquality.convertNumericQualityToString
 import com.example.android.trackmysleepquality.database.SleepNight
 import com.example.android.trackmysleepquality.databinding.ListItemSleepNightBinding
 
-class SleepNightAdapter(val clickListener: SleepNightDiffCallback.SleepNightListener):
-        ListAdapter<SleepNight, SleepNightAdapter.ViewHolder>(SleepNightDiffCallback()) {
+class SleepNightAdapter(val clickListener: SleepNightDiffCallback.SleepNightListener) : ListAdapter<SleepNight, SleepNightAdapter.ViewHolder>(SleepNightDiffCallback()) {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        
+
         holder.bind(getItem(position)!!, clickListener)
     }
 
@@ -42,10 +38,12 @@ class SleepNightAdapter(val clickListener: SleepNightDiffCallback.SleepNightList
 
         fun bind(item: SleepNight, clickListener: SleepNightDiffCallback.SleepNightListener) {
             binding.sleep = item
+                    binding.clickListener = clickListener
             binding.executePendingBindings()
         }
 
-        companion object {
+
+    companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = ListItemSleepNightBinding.inflate(layoutInflater, parent, false)
